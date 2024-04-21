@@ -1,0 +1,24 @@
+/ {
+    macros {
+        pw1: pw1 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings
+                = <&macro_press &kp LSHFT>
+                , <&macro_tap &kp Z &kp M &kp K>
+                , <&macro_release &kp LSHFT>
+                ;
+        };
+        
+        pw2: pw2 {
+            label = "PW_2";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            tap-ms = <30>; // recommended value for BLE
+            wait-ms = <30>;  // recommended value for BLE
+            bindings
+                = <&macro_tap &kp N2 &kp N0 &kp N1 &kp N4 &kp RET>
+                ;
+        };
+    };
+};
