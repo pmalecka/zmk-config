@@ -39,6 +39,13 @@
     cs-gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
 };
 
+&left_encoder { steps = <42>; };
+&right_encoder { steps = <42>; };
+
+&sensors {  
+    triggers-per-rotation = <12>;
+};
+
 #define F_TERM LC(GRAVE) // hotkey for terminal in vscode
 #define PT_RUN LA(LS(LG(LC(R)))) // powertoys run
 #define PT_TERM LA(LS(LG(LC(B)))) // boss key for terminal
@@ -116,7 +123,7 @@
                  &none     &none    &kp LALT &kp SPACE &lt 1 BSPC &lt 2 DEL   &kp RET  &kp RGUI &none     &none
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp K_SCROLL_UP K_SCROLL_DOWN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
         lower_layer {
