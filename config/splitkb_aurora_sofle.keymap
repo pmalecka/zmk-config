@@ -129,13 +129,13 @@
         lower_layer {
 // ------------------------------------------------------------------------------------------------------------
 // |F_TERM| F1  | F2  |  F3   |  F4   |  F5   |                   |  F6  |  F7  |  F8  | F9  | F10 | F11 |
-// |      |     |SCRT2| SCRT3 |PT_RUN |PT_TERM|                   |      | HOME |  UP  |PG_UP| F11 | F12 |
+// |      |     |SCRT2| SCRT3 |PT_RUN |PT_TERM|                   |      | HOME |  UP  |PG_UP|     | F12 |
 // |      |VOLD |VOLU |BW_BOSS|SX_PRSC|   [   |                   |      | LEFT | DOWN |RIGHT|     |     |
 // |      |LEFT |DOWN |  UP   | RIGHT |   {   |      |     |      |  }   | END  |      |PG_DN|     |     |
 //              |     |       |       |       |      |     |      |      |      |      |     |
             bindings = <
 &kp F_TERM &kp F1           &kp F2            &kp F3            &kp F4       &kp F5                       &kp F6   &kp F7   &kp F8   &kp F9    &kp F10 &kp F11
-&trans     &trans           &pw2              &pw3              &kp PT_RUN   &kp PT_TERM                  &trans   &kp HOME &kp UP   &kp PG_UP &trans  &trans
+&trans     &trans           &pw2              &pw3              &kp PT_RUN   &kp PT_TERM                  &trans   &kp HOME &kp UP   &kp PG_UP &trans  &kp F12
 &trans     &kp C_VOL_DN     &kp C_VOL_UP      &kp BW_BOSS       &kp SX_PRSC  &td_lbkt                     &td_rbkt &kp LEFT &kp DOWN &kp RIGHT &trans  &trans
 &trans     &kp LEFT         &kp DOWN          &kp UP            &kp RIGHT    &kp LBRC  &trans   &trans    &kp RBRC &kp END  &trans   &kp PG_DN &trans  &trans
                             &trans            &trans            &trans       &trans    &trans   &kp DEL   &trans   &trans   &trans   &trans
