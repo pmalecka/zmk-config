@@ -1,0 +1,59 @@
+// PR 2027 needed: https://github.com/zmkfirmware/zmk/pull/2027
+
+// #define ZMK_MOUSE_DEFAULT_MOVE_VAL 1500  // default: 600
+
+#include <dt-bindings/zmk/mouse.h>
+#include <behaviors/mouse_keys.dtsi>
+
+#define ZMK_MOUSE_SCRL_VAL_ENCODER 140    // default: 10
+
+#define SCRL_UP_ENCODER MOVE_Y(ZMK_MOUSE_SCRL_VAL_ENCODER)
+#define SCRL_DOWN_ENCODER MOVE_Y(-ZMK_MOUSE_SCRL_VAL_ENCODER)
+#define SCRL_LEFT_ENCODER MOVE_X(-ZMK_MOUSE_SCRL_VAL_ENCODER)
+#define SCRL_RIGHT_ENCODER MOVE_X(ZMK_MOUSE_SCRL_VAL_ENCODER)
+
+/ {
+	behaviors {
+		inc_dec_msc: behavior_sensor_rotate_mouse_wheel {
+			compatible = "zmk,behavior-sensor-rotate-var";
+			#sensor-binding-cells = <2>;
+         	bindings = <&msc>, <&msc>;
+			tap-ms = <20>;
+		};
+
+		inc_dec_mmv: behavior_sensor_rotate_mouse_movement {
+			compatible = "zmk,behavior-sensor-rotate-var";
+			#sensor-binding-cells = <2>;
+         	bindings = <&mmv>, <&mmv>;
+			tap-ms = <20>;
+		};
+
+		scroll_up_down: behavior_sensor_rotate_mouse_wheel_up_down {
+			compatible = "zmk,behavior-sensor-rotate";
+			#sensor-binding-cells = <0>;
+         	bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+			tap-ms = <20>;
+		};
+	};
+};
+
+&mmv {
+  acceleration-exponent = <1>;      // 1
+  time-to-max-speed-ms = <500>;    // 40
+  delay-ms = <0>;                   // 0
+};
+
+&msc {
+  acceleration-exponent = <1>;      // 0
+  time-to-max-speed-ms = <40>;      // 500
+  delay-ms = <0>;                   // 10
+};
+
+#define U_MS_U &mmv MOVE_UP
+#define U_MS_D &mmv MOVE_DOWN
+#define U_MS_L &mmv MOVE_LEFT
+#define U_MS_R &mmv MOVE_RIGHT
+#define U_WH_U &msc SCRL_UP
+#define U_WH_D &msc SCRL_DOWN
+#define U_WH_L &msc SCRL_LEFT
+#define U_WH_R &msc SCRL_RIGHT
