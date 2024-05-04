@@ -57,11 +57,27 @@
 
 / {
     behaviors {
+
+        // no mods: escape 
+        // shift: tilde (shift+grave)
+        // gui/cmd/win: grave
+        // when ctrl is pressed, just send escape
+
+
         gresc: grave_escape {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&kp ESC>, <&kp GRAVE>;
+            bindings = <&kp ESC>, <&gresc_win_taskman>;
             mods = <(MOD_LGUI|MOD_LSFT|MOD_RGUI|MOD_RSFT)>;
+            keep-mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        gresc_win_taskman: grave_escape_windows_taskmanager {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp GRAVE>, <&kp ESC>;
+            mods = <(MOD_LCTL|MOD_RCTL)>;
+            keep-mods = <(MOD_LCTL|MOD_RCTL)>;
         };
 
         td_scln: td_semicolon_or_colon {
@@ -146,7 +162,7 @@
                             &trans            &trans            &trans       &trans    &trans   &kp DEL   &trans   &trans   &trans   &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp PREV_WORD NEXT_WORD>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         raise_layer {
@@ -164,7 +180,7 @@
                         &trans       &trans       &trans       &trans    &kp BSPC  &trans  &trans          &trans            &trans            &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_VOL_UP C_VOL_DN>;
+            sensor-bindings = <&inc_dec_kp PREV_WORD NEXT_WORD &inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
     };
 };
