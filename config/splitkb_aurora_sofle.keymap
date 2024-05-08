@@ -33,6 +33,7 @@
 
 &mt {
     tapping-term-ms = <TAPPING_TERM_MS>;
+    flavor = "tap-preferred";
 };
 
 &nice_view_spi {
