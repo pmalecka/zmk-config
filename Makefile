@@ -20,7 +20,9 @@ all:
 		-v $(PWD)/build.json:/app/build.json:ro$(SELINUX2) \
 		-e TIMESTAMP=$(TIMESTAMP) \
 		-e COMMIT=$(COMMIT) \
+		-e BUILD_LEFT=true \
 		-e BUILD_RIGHT=true \
+		-e BUILD_SETTINGS_RESET=true \
 		zmk
 	# git checkout config/version.dtsi
 
@@ -33,7 +35,24 @@ left:
 		-v $(PWD)/build.json:/app/build.json:ro$(SELINUX2) \
 		-e TIMESTAMP=$(TIMESTAMP) \
 		-e COMMIT=$(COMMIT) \
+		-e BUILD_LEFT=true \
 		-e BUILD_RIGHT=false \
+		-e BUILD_SETTINGS_RESET=false \
+		zmk
+	# git checkout config/version.dtsi
+
+settings_reset:
+	$(shell bin/get_version.sh >> /dev/null)
+	$(DOCKER) build --tag zmk --file Dockerfile .
+	$(DOCKER) run --rm -it --name zmk \
+		-v $(PWD)/firmware:/app/firmware$(SELINUX1) \
+		-v $(PWD)/config:/app/config:ro$(SELINUX2) \
+		-v $(PWD)/build.json:/app/build.json:ro$(SELINUX2) \
+		-e TIMESTAMP=$(TIMESTAMP) \
+		-e COMMIT=$(COMMIT) \
+		-e BUILD_LEFT=false \
+		-e BUILD_RIGHT=false \
+		-e BUILD_SETTINGS_RESET=true \
 		zmk
 	# git checkout config/version.dtsi
 
