@@ -15,7 +15,7 @@
 
 #include "pwmacro.dtsi" 
 
-#if (__has_include("pwmacro.dtsi") && !defined(NO_SECRETS))
+#if (__has_include("pwmacro.dtsi") && defined(MY_SECRETS))
 #include "secrets.dtsi"
 #endif
 
