@@ -17,7 +17,7 @@ all:
 	$(DOCKER) run --rm -it --name zmk \
 		-v $(PWD)/firmware:/app/firmware$(SELINUX1) \
 		-v $(PWD)/config:/app/config:ro$(SELINUX2) \
-		-v $(PWD)/build.json:/app/build.json:ro$(SELINUX2) \
+		-v $(PWD)/build.yaml:/app/build.yaml:ro$(SELINUX2) \
 		-e TIMESTAMP=$(TIMESTAMP) \
 		-e COMMIT=$(COMMIT) \
 		-e BUILD_LEFT=true \
@@ -32,7 +32,7 @@ left:
 	$(DOCKER) run --rm -it --name zmk \
 		-v $(PWD)/firmware:/app/firmware$(SELINUX1) \
 		-v $(PWD)/config:/app/config:ro$(SELINUX2) \
-		-v $(PWD)/build.json:/app/build.json:ro$(SELINUX2) \
+		-v $(PWD)/build.yaml:/app/build.yaml:ro$(SELINUX2) \
 		-e TIMESTAMP=$(TIMESTAMP) \
 		-e COMMIT=$(COMMIT) \
 		-e BUILD_LEFT=true \
@@ -47,7 +47,7 @@ settings_reset:
 	$(DOCKER) run --rm -it --name zmk \
 		-v $(PWD)/firmware:/app/firmware$(SELINUX1) \
 		-v $(PWD)/config:/app/config:ro$(SELINUX2) \
-		-v $(PWD)/build.json:/app/build.json:ro$(SELINUX2) \
+		-v $(PWD)/build.yaml:/app/build.yaml:ro$(SELINUX2) \
 		-e TIMESTAMP=$(TIMESTAMP) \
 		-e COMMIT=$(COMMIT) \
 		-e BUILD_LEFT=false \

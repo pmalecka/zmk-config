@@ -7,10 +7,10 @@ set -eu
 PWD=$(pwd)
 TIMESTAMP="${TIMESTAMP:-$(date +"%Y%m%d-%H%M%S-%Z")}"
 COMMIT="${COMMIT:-$(echo xxxxxx)}"
-build_matrix_file="${PWD}/build.json"
-shield_left=$(jq -r '.include[0].shield' "${build_matrix_file}")
-shield_right=$(jq -r '.include[1].shield' "${build_matrix_file}")
-shield_settings_reset=$(jq -r '.include[2].shield' "${build_matrix_file}")
+build_matrix_json=$(yaml2json "${PWD}/build.yaml" | jq)
+shield_left=$(echo "$build_matrix_json" | jq -r '.include[0].shield')
+shield_right=$(echo "$build_matrix_json" | jq -r '.include[1].shield')
+shield_settings_reset=$(echo "$build_matrix_json" | jq -r '.include[2].shield')
 
 # Build left side if selected
 if [ "${BUILD_LEFT}" = true ]; then
