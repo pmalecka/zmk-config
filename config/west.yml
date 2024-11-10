@@ -10,6 +10,8 @@ manifest:
       url-base: https://github.com/urob
     - name: petejohanson
       url-base: https://github.com/petejohanson
+    - name: infely                             # for nice-view-battery
+      url-base: https://github.com/infely
   projects:
     # - name: zmk
     #   remote: zmkfirmware
@@ -27,5 +29,8 @@ manifest:
     #   remote: petejohanson
     #   revision: feat/pointers-move-scroll
     #   import: app/west.yml
+    - name: nice-view-battery
+      remote: infely
+      revision: main
   self:
     path: config
