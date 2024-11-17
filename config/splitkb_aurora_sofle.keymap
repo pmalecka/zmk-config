@@ -13,11 +13,7 @@
 
 #include "mouse.dtsi"
 
-#include "pwmacro.dtsi" 
-
-#if (__has_include("pwmacro.dtsi") && defined(MY_SECRETS))
-#include "secrets.dtsi"
-#endif
+#include "pwmacro.dtsi"
 
 #define TAPPING_TERM_MS 200 // how long a key must be pressed to trigger hold behavior.
 

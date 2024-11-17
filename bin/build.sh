@@ -15,7 +15,7 @@ shield_settings_reset=$(echo "$build_matrix_json" | jq -r '.include[2].shield')
 # Build left side if selected
 if [ "${BUILD_LEFT}" = true ]; then
     # West Build (left)
-    west build -s zmk/app -d build/left -b nice_nano_v2 -- -DZMK_CONFIG="${PWD}/config" -DSHIELD="${shield_left}" -DMY_SECRETS=yessir
+    west build -p=always -s zmk/app -d build/left -b nice_nano_v2 -- -DZMK_CONFIG="${PWD}/config" -DSHIELD="${shield_left}" -DEXTRA_DTC_OVERLAY_FILE="${PWD}/config/secrets.dtsi"
     # Adv360 Left Kconfig file
     grep -vE '(^#|^$)' build/left/zephyr/.config
     # Rename zmk.uf2
@@ -25,7 +25,7 @@ fi
 # Build right side if selected
 if [ "${BUILD_RIGHT}" = true ]; then
     # West Build (right)
-    west build -s zmk/app -d build/right -b nice_nano_v2 -- -DZMK_CONFIG="${PWD}/config" -DSHIELD="${shield_right}" -DMY_SECRETS=yessir
+    west build -p=always -s zmk/app -d build/right -b nice_nano_v2 -- -DZMK_CONFIG="${PWD}/config" -DSHIELD="${shield_right}" -DEXTRA_DTC_OVERLAY_FILE="${PWD}/config/secrets.dtsi"
     # Adv360 Right Kconfig file
     grep -vE '(^#|^$)' build/right/zephyr/.config
     # Rename zmk.uf2
