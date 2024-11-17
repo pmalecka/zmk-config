@@ -62,4 +62,4 @@ clean_firmware:
 clean_image:
 	$(DOCKER) image rm zmk docker.io/zmkfirmware/zmk-build-arm:stable
 
-clean: clean_firmware clean_image
+clean: clean_image
