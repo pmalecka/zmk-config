@@ -17,12 +17,6 @@
 
 #define TAPPING_TERM_MS 200 // how long a key must be pressed to trigger hold behavior.
 
-/* Uncomment this block if using RGB
-&led_strip {
-    chain-length = <6>;
-};
- */
-
 &lt {
     tapping-term-ms = <TAPPING_TERM_MS>;
 };

@@ -13,18 +13,18 @@ manifest:
     - name: infely                             # for nice-view-battery
       url-base: https://github.com/infely
   projects:
-    # - name: zmk
-    #   remote: zmkfirmware
-    #   revision: main
-    #   import: app/west.yml
+    - name: zmk
+      remote: zmkfirmware
+      revision: main
+      import: app/west.yml
     # - name: zmk
     #   remote: nickconway
     #   revision: dev
     #   import: app/west.yml
-    - name: zmk
-      remote: urob
-      revision: main
-      import: app/west.yml
+    # - name: zmk
+    #   remote: urob
+    #   revision: main
+    #   import: app/west.yml
     # - name: zmk
     #   remote: petejohanson
     #   revision: feat/pointers-move-scroll
