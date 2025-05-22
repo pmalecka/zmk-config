@@ -9,9 +9,17 @@ SELINUX1 := :z
 SELINUX2 := ,z
 endif
 
-.PHONY: all left clean_firmware clean_image clean
+.PHONY: build clean_firmware clean_image clean
 
-all:
+# Catch-all target to ignore unknown arguments
+%:
+	@:
+
+# Process arguments as BUILD_* variables
+ARGS := $(filter-out build,$(MAKECMDGOALS))
+$(foreach arg,$(ARGS),$(eval BUILD_$(shell echo $(arg) | tr a-z A-Z)=true))
+
+build:
 	$(shell bin/get_version.sh >> /dev/null)
 	$(DOCKER) build --tag zmk --file Dockerfile .
 	$(DOCKER) run --rm -it --name zmk \
@@ -20,39 +28,7 @@ all:
 		-v $(PWD)/build.yaml:/app/build.yaml:ro$(SELINUX2) \
 		-e TIMESTAMP=$(TIMESTAMP) \
 		-e COMMIT=$(COMMIT) \
-		-e BUILD_LEFT=true \
-		-e BUILD_RIGHT=true \
-		-e BUILD_SETTINGS_RESET=true \
-		zmk
-	# git checkout config/version.dtsi
-
-left:
-	$(shell bin/get_version.sh >> /dev/null)
-	$(DOCKER) build --tag zmk --file Dockerfile .
-	$(DOCKER) run --rm -it --name zmk \
-		-v $(PWD)/firmware:/app/firmware$(SELINUX1) \
-		-v $(PWD)/config:/app/config:ro$(SELINUX2) \
-		-v $(PWD)/build.yaml:/app/build.yaml:ro$(SELINUX2) \
-		-e TIMESTAMP=$(TIMESTAMP) \
-		-e COMMIT=$(COMMIT) \
-		-e BUILD_LEFT=true \
-		-e BUILD_RIGHT=false \
-		-e BUILD_SETTINGS_RESET=false \
-		zmk
-	# git checkout config/version.dtsi
-
-settings_reset:
-	$(shell bin/get_version.sh >> /dev/null)
-	$(DOCKER) build --tag zmk --file Dockerfile .
-	$(DOCKER) run --rm -it --name zmk \
-		-v $(PWD)/firmware:/app/firmware$(SELINUX1) \
-		-v $(PWD)/config:/app/config:ro$(SELINUX2) \
-		-v $(PWD)/build.yaml:/app/build.yaml:ro$(SELINUX2) \
-		-e TIMESTAMP=$(TIMESTAMP) \
-		-e COMMIT=$(COMMIT) \
-		-e BUILD_LEFT=false \
-		-e BUILD_RIGHT=false \
-		-e BUILD_SETTINGS_RESET=true \
+		$(foreach v,$(filter BUILD_%,$(.VARIABLES)),-e $(v)=true) \
 		zmk
 	# git checkout config/version.dtsi
 
