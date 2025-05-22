@@ -51,8 +51,8 @@ yaml2json "${PWD}/build.yaml" | jq -c '.include[]' | while read -r item; do
         west update
         # West Build (dynamic)
         # west build -p=always -s zmk/app -d "build/${artifact_name}" -b "${board}" -- -DZMK_CONFIG="${PWD}/config" -DSHIELD="${shield}" -DEXTRA_DTC_OVERLAY_FILE="${PWD}/config/secrets.dtsi"
-        echo west build -p=always -s zmk/app -d "build/${artifact_name}" -b "${board}" "${extra_west_args}" -- -DZMK_CONFIG="${PWD}/config" "${extra_cmake_args}" "${expanded_cmake_args}"
-        west build -p=always -s zmk/app -d "build/${artifact_name}" -b "${board}" "${extra_west_args}" -- -DZMK_CONFIG="${PWD}/config" "${extra_cmake_args}" "${expanded_cmake_args}"
+        echo west build -p=always -s zmk/app -d "build/${artifact_name}" -b "${board}" "${extra_west_args}" -- -DZMK_CONFIG="${PWD}/config" "${extra_cmake_args}" "${expanded_cmake_args[@]}"
+        west build -p=always -s zmk/app -d "build/${artifact_name}" -b "${board}" "${extra_west_args}" -- -DZMK_CONFIG="${PWD}/config" "${extra_cmake_args}" "${expanded_cmake_args[@]}"
         # Left Kconfig file
         grep -vE '(^#|^$)' "build/${artifact_name}/zephyr/.config"
         # Rename zmk.uf2

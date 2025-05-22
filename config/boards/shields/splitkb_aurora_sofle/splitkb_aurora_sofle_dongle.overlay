@@ -6,6 +6,17 @@
 };
 
 / {
+    pro_micro: connector {
+        compatible = "arduino-pro-micro";
+    };
+};
+
+nice_view_spi: &spi0 {
+    compatible = "nordic,nrf-spim";
+    cs-gpios = <>;
+};
+
+/ {
     chosen {
         zmk,kscan = &mock_kscan;
         zmk,physical-layout = &josefadamcik_sofle_layout;
