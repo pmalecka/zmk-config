@@ -47,7 +47,8 @@ sudo apt-get install docker make
 
 ### Building the firmware
 
-1. Execute `make` to build firmware for both halves or `make left` to only build firmware for the left hand side.
+1. Execute `make` to build firmware for both halves or `make build left` to only build firmware for the left hand side.
+   Or use `make build all` to build everything specified in the build.yaml file.
 2. Check the `firmware` directory for the latest firmware build. The first part of the filename is the timestamp when the firmware was built.
 
 ### Cleanup
