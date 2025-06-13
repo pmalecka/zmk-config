@@ -1,5 +1,11 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 #include <dt-bindings/zmk/matrix_transform.h>
-#include "splitkb_aurora_sofle.dtsi"
+
 #include <layouts/josefadamcik/sofle.dtsi>
 
 &josefadamcik_sofle_layout {
@@ -7,16 +13,10 @@
 };
 
 / {
-    chosen {
-        zmk,kscan = &mock_kscan;
-        zmk,physical-layout = &josefadamcik_sofle_layout;
-    };
 
-    mock_kscan: mock_kscan_0 {
-        compatible = "zmk,kscan-mock";
-        columns = <0>;
-        rows = <0>;
-        events = <0>;
+    chosen {
+        zephyr,display = &oled;
+        zmk,physical-layout = &josefadamcik_sofle_layout;
     };
 
     default_transform: keymap_transform_0 {
@@ -36,16 +36,61 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(4,5) RC(4,6) RC(3,6) RC(3,7) 
                 RC(4,0) RC(4,1) RC(4,2) RC(4,3) RC(4,4) RC(4,7) RC(4,8) RC(4,9) RC(4,10) RC(4,11)
         >;
     };
+
+    dummy_encoder: dummy_encoder {
+         compatible = "alps,ec11";
+         a-gpios = <&gpio0 17 (GPIO_PULL_UP)>;
+         b-gpios = <&gpio0 20 (GPIO_PULL_UP)>;
+         steps = <80>;
+         status = "disabled";
+     };
+
+    left_encoder: left_encoder {
+        compatible = "alps,ec11";
+        steps = <0>;
+        status = "disabled";
+
+        a-gpios = <&gpio0 10 GPIO_PULL_UP>;
+        b-gpios = <&gpio0 9 GPIO_PULL_UP>;
+    };
+
+    right_encoder: right_encoder {
+        compatible = "alps,ec11";
+        steps = <0>;
+        status = "disabled";
+
+        a-gpios = <&gpio0 10 GPIO_PULL_UP>;
+        b-gpios = <&gpio0 9 GPIO_PULL_UP>;
+    };
+
+    sensors: sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&left_encoder &right_encoder>;
+        triggers-per-rotation = <96>;
+    };
 };
 
-&dummy_encoder {
+&i2c0 {
     status = "okay";
+
+    oled: ssd1306@3c {
+        compatible = "solomon,ssd1306fb";
+        reg = <0x3c>;
+        width = <128>;
+        height = <32>;
+        segment-offset = <0>;
+        page-offset = <0>;
+        display-offset = <0>;
+        multiplex-ratio = <31>;
+        segment-remap;
+        com-invdir;
+        com-sequential;
+        inversion-on;
+        prechargep = <0x22>;
+    };
 };
 
-&uart0 {
-    status = "disabled";
-};
-
-&xiao_serial {
-    status = "disabled";
+nice_view_spi: &spi0 {
+    compatible = "nordic,nrf-spim";
+    cs-gpios = <>;
 };

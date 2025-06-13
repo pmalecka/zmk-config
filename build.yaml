@@ -32,16 +32,16 @@ include:
   
   - board: nice_nano_v2
     shield: settings_reset
-    tags: sofle reset
+    tags: sofle reset settings_reset
     artifact-name: peripherial-reset
   - board: seeeduino_xiao_ble
     shield: settings_reset
-    tags: sofle dongle reset
+    tags: sofle dongle reset settings_reset
     artifact-name: dongle-reset
   
   - board: seeeduino_xiao_ble
     shield: splitkb_aurora_sofle_dongle prospector_adapter
     snippet: zmk-usb-logging
     cmake-args: -DEXTRA_DTC_OVERLAY_FILE="${PWD}/config/secrets.dtsi"
-    tags: sofle dongle dongle_central
+    tags: sofle dongle dongle_central split_central
     artifact-name: dongle
