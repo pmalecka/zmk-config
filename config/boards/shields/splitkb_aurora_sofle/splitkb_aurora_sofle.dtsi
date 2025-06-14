@@ -6,17 +6,11 @@
 
 #include <dt-bindings/zmk/matrix_transform.h>
 
-#include <layouts/josefadamcik/sofle.dtsi>
-
-&josefadamcik_sofle_layout {
-    transform = <&default_transform>;
-};
-
 / {
 
     chosen {
         zephyr,display = &oled;
-        zmk,physical-layout = &josefadamcik_sofle_layout;
+        zmk,matrix-transform = &default_transform;
     };
 
     default_transform: keymap_transform_0 {
@@ -37,21 +31,13 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(4,5) RC(4,6) RC(3,6) RC(3,7) 
         >;
     };
 
-    dummy_encoder: dummy_encoder {
-         compatible = "alps,ec11";
-         a-gpios = <&gpio0 17 (GPIO_PULL_UP)>;
-         b-gpios = <&gpio0 20 (GPIO_PULL_UP)>;
-         steps = <80>;
-         status = "disabled";
-     };
-
     left_encoder: left_encoder {
         compatible = "alps,ec11";
         steps = <0>;
         status = "disabled";
 
-        a-gpios = <&gpio0 10 GPIO_PULL_UP>;
-        b-gpios = <&gpio0 9 GPIO_PULL_UP>;
+        a-gpios = <&pro_micro 16 GPIO_PULL_UP>;
+        b-gpios = <&pro_micro 10 GPIO_PULL_UP>;
     };
 
     right_encoder: right_encoder {
@@ -59,8 +45,8 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(4,5) RC(4,6) RC(3,6) RC(3,7) 
         steps = <0>;
         status = "disabled";
 
-        a-gpios = <&gpio0 10 GPIO_PULL_UP>;
-        b-gpios = <&gpio0 9 GPIO_PULL_UP>;
+        a-gpios = <&pro_micro 16 GPIO_PULL_UP>;
+        b-gpios = <&pro_micro 10 GPIO_PULL_UP>;
     };
 
     sensors: sensors {
@@ -70,7 +56,7 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(4,5) RC(4,6) RC(3,6) RC(3,7) 
     };
 };
 
-&i2c0 {
+&pro_micro_i2c {
     status = "okay";
 
     oled: ssd1306@3c {
@@ -88,9 +74,4 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(4,5) RC(4,6) RC(3,6) RC(3,7) 
         inversion-on;
         prechargep = <0x22>;
     };
-};
-
-nice_view_spi: &spi0 {
-    compatible = "nordic,nrf-spim";
-    cs-gpios = <>;
 };

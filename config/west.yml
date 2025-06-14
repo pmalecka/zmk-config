@@ -10,15 +10,21 @@ manifest:
     #   url-base: https://github.com/urob
     # - name: petejohanson
     #   url-base: https://github.com/petejohanson
+    - name: infused-kim
+      url-base: https://github.com/infused-kim
+    - name: t0bybr
+      url-base: https://github.com/t0bybr
     - name: infely                             # for nice-view-battery
       url-base: https://github.com/infely
     - name: pmalecka                         # for prospector dongle
       url-base: https://github.com/pmalecka
   projects:
-    - name: zmk
-      remote: zmkfirmware
-      revision: main
-      import: app/west.yml
+    # official ZMK now has another PR merged
+    # that make the trackball driver incompatible
+    # - name: zmk
+    #   remote: zmkfirmware
+    #   revision: main
+    #   import: app/west.yml
     # - name: zmk
     #   remote: nickconway
     #   revision: dev
@@ -31,11 +37,18 @@ manifest:
     #   remote: petejohanson
     #   revision: feat/pointers-move-scroll
     #   import: app/west.yml
+    - name: zmk
+      remote: infused-kim
+      revision: pr-testing/mouse_ps2_module_base_urob
+      import: app/west.yml
     - name: nice-view-battery
       remote: infely
       revision: main
-    - name: prospector-zmk-module
-      remote: pmalecka
-      revision: computer_sleep_detection
+    # - name: prospector-zmk-module
+    #   remote: pmalecka
+    #   revision: old-zmk
+    - name: pim447
+      remote: t0bybr
+      revision: main
   self:
     path: config

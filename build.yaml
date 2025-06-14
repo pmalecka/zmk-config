@@ -20,28 +20,30 @@
 include:
   - board: nice_nano_v2
     shield: splitkb_aurora_sofle_left # nice_view_adapter nice_view_battery
-    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n # needed for dongle
+    # cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n # needed for dongle
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y
     tags: sofle dongle left
     artifact-name: periperial-left
-    snippet: zmk-usb-logging
+    # snippet: zmk-usb-logging
   - board: nice_nano_v2
     shield: splitkb_aurora_sofle_right nice_view_adapter nice_view_battery
     cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n # needed for dongle
     tags: sofle dongle right
     artifact-name: periperial-right
+    # snippet: zmk-usb-logging
   
   - board: nice_nano_v2
     shield: settings_reset
     tags: sofle reset settings_reset
     artifact-name: peripherial-reset
-  - board: seeeduino_xiao_ble
-    shield: settings_reset
-    tags: sofle dongle reset settings_reset
-    artifact-name: dongle-reset
+  # - board: seeeduino_xiao_ble
+  #   shield: settings_reset
+  #   tags: sofle dongle reset settings_reset
+  #   artifact-name: dongle-reset
   
-  - board: seeeduino_xiao_ble
-    shield: splitkb_aurora_sofle_dongle prospector_adapter
-    snippet: zmk-usb-logging
-    cmake-args: -DEXTRA_DTC_OVERLAY_FILE="${PWD}/config/secrets.dtsi"
-    tags: sofle dongle dongle_central split_central
-    artifact-name: dongle
+  # - board: seeeduino_xiao_ble
+  #   shield: splitkb_aurora_sofle_dongle prospector_adapter
+  #   snippet: zmk-usb-logging
+  #   cmake-args: -DEXTRA_DTC_OVERLAY_FILE="${PWD}/config/secrets.dtsi"
+  #   tags: sofle dongle dongle_central split_central
+  #   artifact-name: dongle

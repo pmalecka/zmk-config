@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 #include "splitkb_aurora_sofle.dtsi"
 
 / {
@@ -32,4 +38,87 @@
 
 &left_encoder {
     status = "okay";
+};
+
+// trackball stuff added below
+
+#define ZMK_MOUSE_DEFAULT_MOVE_VAL 600  // 600
+#define ZMK_MOUSE_DEFAULT_SCRL_VAL 10    // 10
+
+#include <dt-bindings/zmk/mouse.h>
+
+#include <behaviors/mouse_keys.dtsi>
+#include <behaviors/mouse_move.dtsi>
+
+&pinctrl {
+    i2c1_default: i2c1_default {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 17)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 20)>;
+            bias-pull-up;
+        };
+    };
+
+    i2c1_sleep: i2c1_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 17)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 20)>;
+            low-power-enable;
+        };
+    };
+};
+
+&i2c1 {
+    status = "okay";
+
+    compatible = "nordic,nrf-twi";
+    pinctrl-0 = <&i2c1_default>;
+    pinctrl-1 = <&i2c1_sleep>;
+    pinctrl-names = "default", "sleep";
+    clock-frequency = <400000>;
+
+    pimoroni_pim447: zmk_pimoroni_pim447@0a {
+        compatible = "zephyr,input-device", "zmk,pimoroni-pim447";
+        reg = <0x0A>;
+		int-gpios = <&gpio0 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        automouse-layer = <3>;
+    };
+};
+
+&mmv {
+    acceleration-exponent = <1>;  // 1
+    time-to-max-speed-ms = <300>; // 300
+    delay-ms = <0>;
+    trigger-period-ms = <8>;      // 16
+};
+
+&msc {
+    acceleration-exponent = <1>;  // 0
+    time-to-max-speed-ms = <40>;  // 300
+    delay-ms = <0>;
+    trigger-period-ms = <8>;      // 16
+};
+
+/ {
+    behaviors {
+        // mmv: mouse_move {
+        //     compatible = "zmk,behavior-input-two-axis";
+        //     #binding-cells = <1>;
+        //     x-input-code = <INPUT_REL_X>;
+        //     y-input-code = <INPUT_REL_Y>;
+        //     time-to-max-speed-ms = <500>;
+        //     acceleration-exponent = <1>;
+        // };
+
+
+    };
+
+	pimoroni_pim447_listener {
+		compatible = "zmk,input-listener";
+		device = <&pimoroni_pim447>;
+	    xy-swap;
+        y-invert;
+        scale-multiplier = <1>;
+	    scale-divisor = <1>;
+	};
 };

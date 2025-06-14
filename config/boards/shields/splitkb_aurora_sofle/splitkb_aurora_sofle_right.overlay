@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 #include "splitkb_aurora_sofle.dtsi"
 
 / {
@@ -36,8 +42,4 @@
 
 &default_transform {
     col-offset = <6>;
-};
-
-&nice_view_spi {
-    cs-gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>;
 };

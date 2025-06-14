@@ -8,13 +8,16 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
-#include <dt-bindings/zmk/rgb.h>
-#include <dt-bindings/zmk/bt.h>
 
-#include <dt-bindings/zmk/pointing.h>
-#include <behaviors/mouse_keys.dtsi>
 // #include "mouse.dtsi"
 
+#include <dt-bindings/zmk/mouse.h>
+
+#include <behaviors/mouse_keys.dtsi>
+#include <behaviors/mouse_move.dtsi>
+
+#include <behaviors/behavior_pim447.dtsi>
+#include <dt-bindings/behavior_pim447.h>
 
 #include "pwmacro.dtsi"
 
@@ -29,9 +32,9 @@
     flavor = "tap-preferred";
 };
 
-&nice_view_spi {
-    cs-gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>;
-};
+// &nice_view_spi {
+//     cs-gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>;
+// };
 
 #define F_TERM LC(GRAVE) // hotkey for terminal in vscode
 #define PT_RUN LA(LS(LG(LC(R)))) // powertoys run
@@ -87,11 +90,55 @@
             bindings = <&kp RBKT>, <&kp RPAR>;
         };
 
-        scroll_encoder: scroll_encoder {
-            compatible = "zmk,behavior-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+        // pimoroni trackball stuff
+        m_max_speed: pim447_mouse_max_speed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&pim447 PIM447_MOUSE_INC_MAX_SPEED>, <&pim447 PIM447_MOUSE_DEC_MAX_SPEED>;
+            mods = <(MOD_LSFT)>;
         };
+
+        s_max_speed: pim447_scroll_max_speed {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&pim447 PIM447_SCROLL_INC_MAX_SPEED>, <&pim447 PIM447_SCROLL_DEC_MAX_SPEED>;
+            mods = <(MOD_LSFT)>;
+        };
+
+        m_max_time: pim447_mouse_max_time {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&pim447 PIM447_MOUSE_INC_MAX_TIME>, <&pim447 PIM447_MOUSE_DEC_MAX_TIME>;
+            mods = <(MOD_LSFT)>;
+        };
+
+        s_max_time: pim447_scroll_max_time {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&pim447 PIM447_SCROLL_INC_MAX_TIME>, <&pim447 PIM447_SCROLL_DEC_MAX_TIME>;
+            mods = <(MOD_LSFT)>;
+        };
+
+        m_smooth: pim447_mouse_smoothing_factor {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&pim447 PIM447_MOUSE_INC_SMOOTHING_FACTOR>, <&pim447 PIM447_MOUSE_DEC_SMOOTHING_FACTOR>;
+            mods = <(MOD_LSFT)>;
+        };
+
+        s_smooth: pim447_scroll_smoothing_factor {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&pim447 PIM447_SCROLL_INC_SMOOTHING_FACTOR>, <&pim447 PIM447_SCROLL_DEC_SMOOTHING_FACTOR>;
+            mods = <(MOD_LSFT)>;
+        };
+
+		pim447_hue: pim447_inc_hue_increment_factor {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&pim447 PIM447_INC_HUE_INCREMENT_FACTOR>, <&pim447 PIM447_DEC_HUE_INCREMENT_FACTOR>;
+			mods = <(MOD_LSFT)>;
+		};
     };
 
     macros {
@@ -135,9 +182,8 @@
                  &none     &none    &kp LALT &kp SPACE &lt 1 BSPC &lt 2 DEL   &kp RET  &kp RGUI &none     &none
             >;
 
-            // sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
-            //sensor-bindings = <&inc_dec_msc SCRL_LEFT_ENCODER SCRL_RIGHT_ENCODER &inc_dec_msc SCRL_UP_ENCODER SCRL_DOWN_ENCODER>;
-            sensor-bindings = <&scroll_encoder>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            // sensor-bindings = <&inc_dec_msc SCRL_LEFT_ENCODER SCRL_RIGHT_ENCODER &inc_dec_msc SCRL_UP_ENCODER SCRL_DOWN_ENCODER>;
             // sensor-bindings = <&inc_dec_msc SCRL_LEFT SCRL_RIGHT &inc_dec_msc SCRL_UP SCRL_DOWN>;
         };
 
@@ -171,9 +217,28 @@
             bindings = <
 &kp GRAVE  &kp EXCL     &kp AT       &kp HASH     &kp DOLLAR   &kp PRCNT                   &kp CARET       &kp AMPS          &kp STAR          &kp LPAR             &kp RPAR   &kp UNDER
 &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4                &trans          &trans            &trans            &trans               &trans     &trans
-&trans   &msc SCRL_DOWN &msc SCRL_UP &trans       &trans       &trans                      &rgb_ug RGB_TOG &trans            &trans            &trans               &trans     &trans
-&trans     &trans       &trans       &trans       &trans       &trans    &trans    &trans  &rgb_ug RGB_EFF &ext_power EP_ON  &ext_power EP_OFF &ext_power EP_TOG    &macro_ver &trans
+&trans     &trans       &trans       &trans       &trans       &trans                      &trans          &trans            &trans            &trans               &trans     &trans
+&trans     &trans       &trans       &trans       &trans       &trans    &trans    &trans  &trans          &ext_power EP_ON  &ext_power EP_OFF &ext_power EP_TOG    &macro_ver &trans
                         &trans       &trans       &trans       &trans    &kp BSPC  &trans  &trans          &trans            &trans            &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp PREV_WORD NEXT_WORD &inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+        mouse_layer {
+            display-name = "Mouse";
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// |   `  |  !         |  @         |  #         |  $        |  %       |                                  |  ^      |  &      |  *     |  (      |   )     |   _      |
+// |BTCLR |  BT1       |  BT2       |  BT3       | BT4       | BT5      |                                  |         |         |        |         |         |          |
+// |      |            |            |            |           |          |                                  |         |         |        |         |         |          |
+// |      |            |            |            |           |          |        |                  |      |         |         |        |         |         |          |
+//                     |            |            |           |          |        |                  |      |         |         |        |         |
+            bindings = <
+&trans       &trans       &trans       &trans       &trans       &trans                                        &trans  &trans    &trans         &trans  &trans     &trans
+&m_max_speed &s_max_speed &pim447_hue  &trans       &trans       &trans                                        &trans  &trans    &trans         &trans  &trans     &trans
+&m_max_time  &s_max_time  &trans       &trans       &trans       &trans                                        &trans  &mkp LCLK &mkp RCLK      &trans  &mkp MCLK  &trans
+&m_smooth    &m_smooth    &trans       &trans       &trans       &trans  &trans                      &trans    &trans  &trans &ext_power EP_TOG &trans  &trans     &trans
+                          &trans       &trans       &trans       &trans  &pim447 PIM447_TOGGLE_MODE  &kp LSHFT &trans  &trans    &trans    &trans
             >;
 
             sensor-bindings = <&inc_dec_kp PREV_WORD NEXT_WORD &inc_dec_kp C_VOL_UP C_VOL_DN>;
