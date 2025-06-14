@@ -235,10 +235,10 @@
 //                     |            |            |           |          |        |                  |      |         |         |        |         |
             bindings = <
 &trans       &trans       &trans       &trans       &trans       &trans                                        &trans  &trans    &trans         &trans  &trans     &trans
-&m_max_speed &s_max_speed &pim447_hue  &trans       &trans       &trans                                        &trans  &trans    &trans         &trans  &trans     &trans
-&m_max_time  &s_max_time  &trans       &trans       &trans       &trans                                        &trans  &mkp LCLK &mkp RCLK      &trans  &mkp MCLK  &trans
-&m_smooth    &m_smooth    &trans       &trans       &trans       &trans  &trans                      &trans    &trans  &trans &ext_power EP_TOG &trans  &trans     &trans
-                          &trans       &trans       &trans       &trans  &pim447 PIM447_TOGGLE_MODE  &kp LSHFT &trans  &trans    &trans    &trans
+&trans       &m_max_speed &s_max_speed &pim447_hue  &trans       &trans                                        &trans  &trans    &trans         &trans  &trans     &trans
+&trans       &m_max_time  &s_max_time  &trans       &trans       &trans                    &pim447 PIM447_TOGGLE_MODE  &mkp LCLK &mkp RCLK      &trans  &mkp MCLK  &trans
+&m_smooth    &m_smooth    &trans       &trans       &trans       &trans  &trans                    &trans    &trans  &trans &ext_power EP_TOG   &trans  &trans     &trans
+                          &trans       &trans       &trans       &trans  &trans  &trans &trans  &trans    &trans    &trans
             >;
 
             sensor-bindings = <&inc_dec_kp PREV_WORD NEXT_WORD &inc_dec_kp C_VOL_UP C_VOL_DN>;
