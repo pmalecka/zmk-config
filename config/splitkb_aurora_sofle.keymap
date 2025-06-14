@@ -32,6 +32,7 @@
     flavor = "tap-preferred";
 };
 
+// TODO: figure out how to keep this here, so that the right half's nice-view works..
 // &nice_view_spi {
 //     cs-gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>;
 // };
