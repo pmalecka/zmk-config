@@ -21,10 +21,10 @@ manifest:
   projects:
     # official ZMK now has another PR merged
     # that make the trackball driver incompatible
-    # - name: zmk
-    #   remote: zmkfirmware
-    #   revision: main
-    #   import: app/west.yml
+    - name: zmk
+      remote: zmkfirmware
+      revision: main
+      import: app/west.yml
     # - name: zmk
     #   remote: nickconway
     #   revision: dev
@@ -37,10 +37,10 @@ manifest:
     #   remote: petejohanson
     #   revision: feat/pointers-move-scroll
     #   import: app/west.yml
-    - name: zmk
-      remote: infused-kim
-      revision: pr-testing/mouse_ps2_module_base_urob
-      import: app/west.yml
+    # - name: zmk
+    #   remote: infused-kim
+    #   revision: pr-testing/mouse_ps2_module_base_urob
+    #   import: app/west.yml
     - name: nice-view-battery
       remote: infely
       revision: main
@@ -48,7 +48,7 @@ manifest:
     #   remote: pmalecka
     #   revision: old-zmk
     - name: pim447
-      remote: t0bybr
-      revision: main
+      remote: pmalecka
+      revision: new-zmk
   self:
     path: config

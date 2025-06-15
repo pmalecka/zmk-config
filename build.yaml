@@ -14,13 +14,13 @@ include:
     local-cmake-args: -DEXTRA_DTC_OVERLAY_FILE="${PWD}/config/secrets.dtsi"
     tags: sofle dongle left
     artifact-name: periperial-left
-    # snippet: zmk-usb-logging
+    snippet: zmk-usb-logging
   - board: nice_nano_v2
     shield: splitkb_aurora_sofle_right nice_view_battery
     cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n # needed for dongle
     tags: sofle dongle right
     artifact-name: periperial-right
-    # snippet: zmk-usb-logging
+    snippet: zmk-usb-logging
   
   - board: nice_nano_v2
     shield: settings_reset
