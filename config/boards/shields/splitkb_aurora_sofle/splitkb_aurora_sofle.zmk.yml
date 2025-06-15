@@ -9,7 +9,6 @@ features:
   - keys
   - display
   - encoder
-  - underglow
   - pointer
 siblings:
   - splitkb_aurora_sofle_left

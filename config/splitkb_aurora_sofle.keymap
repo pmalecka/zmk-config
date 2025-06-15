@@ -32,11 +32,6 @@
     flavor = "tap-preferred";
 };
 
-// TODO: figure out how to keep this here, so that the right half's nice-view works..
-// &nice_view_spi {
-//     cs-gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>;
-// };
-
 #define F_TERM LC(GRAVE) // hotkey for terminal in vscode
 #define PT_RUN LA(LS(LG(LC(R)))) // powertoys run
 #define PT_TERM LA(LS(LG(LC(B)))) // boss key for terminal
