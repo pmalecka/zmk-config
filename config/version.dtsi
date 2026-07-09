@@ -4,5 +4,5 @@ compatible = "zmk,behavior-macro";
 #binding-cells = <0>;
 tap-ms = <30>;
 wait-ms = <30>;
-bindings = <&macro_tap &kp N2 &kp N0 &kp N2 &kp N5 &kp N0 &kp N8 &kp N1 &kp N3 &kp N1 &kp N1 &kp N1 &kp N1 &kp C &kp E &kp S &kp T &kp MINUS &kp T &kp R &kp A &kp C &kp MINUS &kp N2 &kp N7 &kp N5 &kp N6 &kp A &kp E &kp N0 &kp RET>;
+bindings = <&macro_tap &kp N2 &kp N0 &kp N2 &kp N6 &kp N0 &kp N7 &kp N0 &kp N9 &kp N1 &kp N1 &kp N5 &kp N4 &kp C &kp E &kp S &kp T &kp MINUS &kp T &kp O &kp M &kp S &kp MINUS &kp N0 &kp B &kp B &kp C &kp F &kp C &kp N5 &kp RET>;
 };

@@ -18,6 +18,8 @@ manifest:
       url-base: https://github.com/infely
     - name: pmalecka                         # for prospector dongle
       url-base: https://github.com/pmalecka
+    - name: tomh4
+      url-base: https://github.com/tomh4 # improver pimoroni driver
   projects:
     # official ZMK now has another PR merged
     # that make the trackball driver incompatible
@@ -48,7 +50,7 @@ manifest:
     #   remote: pmalecka
     #   revision: old-zmk
     - name: pim447
-      remote: pmalecka
+      remote: tomh4
       revision: new-zmk
   self:
     path: config

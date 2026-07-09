@@ -306,7 +306,7 @@
         compatible = "zephyr,input-device", "zmk,pimoroni-pim447";
         reg = <0x0A>;
 		int-gpios = <&gpio0 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        automouse-layer = <3>;
+        // automouse-layer = <3>;
     };
 };
 
@@ -339,6 +339,6 @@
 	pimoroni_pim447_listener {
 		compatible = "zmk,input-listener";
 		device = <&pimoroni_pim447>;
-        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 5 3>;
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>, <&zip_xy_scaler 5 3>;
 	};
 };
