@@ -22,5 +22,6 @@ RUN west update
 RUN west zephyr-export
 
 COPY bin/build.sh ./
+RUN chmod +x build.sh
 
 CMD ["./build.sh"]
